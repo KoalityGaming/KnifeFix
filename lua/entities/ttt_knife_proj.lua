@@ -132,15 +132,16 @@ if SERVER then
      local vel = self:GetVelocity()
      if vel == vector_origin then return end
 
-     local tr = util.TraceLine({start=self:GetPos(), endpos=self:GetPos() + vel:GetNormal() * 20, filter=  function( ent ) 
-																												if (ent:IsPlayer() and ent:IsSpec()) then
-																													return false
-																												elseif self:GetOwner() == ent then
-																													return false
-																												else
-																													return true
-																												end
-																											  end
+     local tr = util.TraceLine({start=self:GetPos(), endpos=self:GetPos() + vel:GetNormal() * 20, filter=  
+		function( ent ) 
+			if (ent:IsPlayer() and ent:IsSpec()) then
+				return false
+			elseif self:GetOwner() == ent then
+				return false
+			else
+				return true
+			end
+		end
 	 , mask=MASK_SHOT_HULL})
 
      if tr.Hit and tr.HitNonWorld and IsValid(tr.Entity) then
